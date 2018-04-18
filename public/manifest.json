@@ -1,0 +1,17 @@
+{
+    "manifest_version": 1,
+    "name": "Resplash",
+    "description": "Resplash by imdbsd",
+    "version": "1",
+    "author": "imdbsd",
+   "browser_action": {      
+      "default_title": "Resplash"
+    },
+   "chrome_url_overrides" : {
+     "newtab": "index.html"
+   },
+   "permissions": [
+    "storage"
+   ],
+    "permissions": ["activeTab"]
+  }

@@ -1,0 +1,23 @@
+.quote__wrapper{
+    max-width: 750px;
+}
+
+.quote__quote-text{
+    font-family: 'Lora', Georgia, serif;
+    font-size: 2em;    
+    color: #FFF;
+    margin: 0 0 5px;
+    cursor: pointer;
+}
+
+.quote__author{
+    font-size: 1em;
+    color: #d2d2d2;
+    font-family: 'Lora', Georgia, serif;
+    cursor: pointer;
+}
+
+.quote__author::before{
+    content: "\2022";
+    margin-right: 10px;
+}

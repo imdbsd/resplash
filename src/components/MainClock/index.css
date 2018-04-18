@@ -1,0 +1,53 @@
+.main-clock__wrapper{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;    
+    font-family: 'Roboto', sans-serif;
+    color: #fff;    
+    display: flex;
+    flex-direction: column;    
+}
+.main-clock__time-wrapper{
+    font-size: 5.5em;
+    cursor: pointer;
+}
+.main-clock__time-wrapper span{
+    margin: 0 10px;
+}
+.main-clock__time.hours{
+    font-weight: bold;
+}
+.main-clock__detect{
+    display: none;
+    font-size: .5em;
+}
+
+.main-clock__detect.show{
+    display: inline-block;
+}
+
+@keyframes second-transition {
+   0% {
+       color: transparent;
+   }
+   50% {
+       color: #fff;
+   }
+   100% {
+       color: transparent;
+   }
+}
+
+.main-clock__second-anim{
+    animation-name: second-transition;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.main-clock__date-wrapper{
+    font-size: 2em;
+}
+
+.main-clock__date-wrapper span{
+    margin: 0 10px;
+}
