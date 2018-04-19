@@ -22,7 +22,7 @@
     align-items: center;
     background-color: rgb(36, 36, 62);   
     transition: width .25s ease;         
-    box-shadow: -8px 2px 10px 10px rgba(0,0,0,0.14);
+    box-shadow: 16px 5px 10px 10px rgba(0,0,0,0.14);
 }
 
 .bookmark__absolut-mark::before{
@@ -34,6 +34,7 @@
     background-color:  rgb(36, 36, 62);
     left: -35px;
     top: 0;    
+    z-index: -1;
 }
 .bookmark__absolut-mark a{
     color: #FFF;
@@ -52,9 +53,15 @@
 
 .bookmark__mark-wrapper.add-section__wrapper{
     width: 50px;
-    position: absolute;
-    right: 0;
+    position: absolute;    
     bottom: -60px;
+}
+
+.bookmark__mark-wrapper.add-section__wrapper.available{
+    right: 0;
+}
+.bookmark__mark-wrapper.add-section__wrapper.full{
+    right: -100px;
 }
 .bookmark__mark-wrapper.add-section__wrapper .bookmark__absolut-mark{
     padding-left: 15px;
@@ -134,4 +141,10 @@
 .bookmark__input-wrapper input {
     border-radius: 5px;
     padding: 5px;
+}
+
+.bookmark__error-msg{
+    color: #f72929;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
