@@ -20,3 +20,18 @@ body{
   align-items: center;
   justify-content: center;  
 }
+
+.app-wrapper__creator{
+  color: #aaa2a2;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+}
+
+.app-wrapper__creator a{
+  font-weight: bold;
+  color: #1dcaff;
+  text-decoration: unset;
+}

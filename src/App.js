@@ -56,6 +56,9 @@ export default class App extends Component{
         <Quote />
         <MainClock />
         <Bookmark />
+        <span className="app-wrapper__creator">
+          Resplash by <a href="https://twitter.com/Budisuryadarma">imdbsd</a>
+        </span>
       </div>
     )
   }

@@ -231,7 +231,7 @@ export default class Bookmark extends Component{
                         return(
                             <div className="bookmark__mark-wrapper" key={index} id={`bookmark-${index}`}>               
                                 <div className="bookmark__absolut-mark">
-                                    <a href={bookmark.url} target="_blank">
+                                    <a href={bookmark.url}>
                                         {
                                             bookmark.siteName.length > 14 ? 
                                             `${bookmark.siteName.substring(0,11)}...`:

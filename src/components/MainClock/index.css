@@ -5,7 +5,7 @@
     font-family: 'Roboto', sans-serif;
     color: #fff;    
     display: flex;
-    flex-direction: column;    
+    flex-direction: row;    
 }
 .main-clock__time-wrapper{
     font-size: 5.5em;
@@ -50,4 +50,81 @@
 
 .main-clock__date-wrapper span{
     margin: 0 10px;
+}
+
+.main-clock__setting-ico{
+    cursor: pointer;
+}
+.main-clock__clock-form-wrapper{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(36, 36, 62);
+    display: block;
+    position: absolute;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    left: -110%;
+    padding-right: 20px;
+}
+.main-clock__clock-form-wrapper.open{
+    left: 0;
+}
+.main-clock__clock-form-wrapper::before{
+    content: "";
+    margin-left: -25px;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(36, 36, 62);
+    position: absolute;
+    z-index: -1;
+}
+
+.main-clock__weather-display{
+    display: flex;
+    justify-content: space-around;    
+}
+
+.main-clock__weather-display p{
+    margin: 0 10px;
+}
+
+.main-clock__weather-display img{
+    align-self: center
+}
+
+.main-clock__weather-copyright{
+    font-size: 10px;
+}
+.main-clock__weather-copyright a{
+    color: orange;
+    text-decoration: none;
+}
+.main-clock__form-input-wrapper input {
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box
+}
+
+.main-clock__form-submit-btn-wrapper{
+    display: block;
+    text-align: right;
+    margin-top: 10px;    
+}
+
+.main-clock__submit-form-btn{
+    background-color: transparent;
+    padding: 10px;
+    color: #FFF;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+    border: 1px solid #FFF;
+}
+
+.main-clock__submit-form-btn:hover{
+    color: #000;
+    background-color: #FFF;
+    transition: all .25s ease;
 }
