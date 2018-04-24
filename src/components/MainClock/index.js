@@ -27,6 +27,8 @@ export default class MainClock extends Component{
             showClockForm: false,
             position: "Greenwich",
             weather: {
+                isLoaded: false,
+                isFound: false,
                 location: "",
                 mainWeather: "",
                 descWeather: "",
@@ -85,8 +87,7 @@ export default class MainClock extends Component{
                 return new Promise((resolve, reject) => {
                     chrome.storage.sync.get(['resplashUserTime'], function(result) {
                         console.log(result);
-                        resolve(result);
-                        // console.log('Value currently is ' + result.key);
+                        resolve(result);                        
                     });
                 })
             }            
@@ -100,8 +101,9 @@ export default class MainClock extends Component{
             })
             .catch(err => {
                 console.log(err);
-            })
+            })           
         }
+
         //set the clock
         let currentDate = new Date();
         this.setState({
@@ -145,22 +147,93 @@ export default class MainClock extends Component{
         }, 1000); 
         
         //getting weather
-        if(this.state.position !== ""){
-            axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.position}&units=metric&appid=9d24d0a1f7423e2c24555db496555442&units=metric`)            
+        if(chrome.storage !== undefined){
+            let getWeatherStorage = () => {
+                return new Promise((resolve, reject) => {
+                    chrome.storage.sync.get(['resplashWeather'], function(result) {
+                        console.log(result);
+                        resolve(result);                        
+                    });
+                })
+            }            
+            getWeatherStorage()
             .then(result => {
                 this.setState({
-                    weather: {
-                        location: result.data.name,
-                        mainWeather: result.data.weather[0].main,
-                        descWeather: result.data.weather[0].description,
-                        iconWeather: result.data.weather[0].icon,
-                        temp: result.data.main.temp,
-                        humidity: result.data.main.humidity
-                    },
-                    position: result.data.name
-                })
+                    position: result.resplashWeather
+                })         
+                if(result.resplashWeather !== ""){
+                    axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${result.resplashWeather}&units=metric&appid=9d24d0a1f7423e2c24555db496555442&units=metric`)            
+                    .then(result => {
+                        this.setState({
+                            weather: {
+                                isLoaded: true,
+                                isFound: true,
+                                location: result.data.name,
+                                mainWeather: result.data.weather[0].main,
+                                descWeather: result.data.weather[0].description,
+                                iconWeather: result.data.weather[0].icon,
+                                temp: result.data.main.temp,
+                                humidity: result.data.main.humidity
+                            },
+                            position: result.data.name
+                        })
+                    })
+                    .catch(err => {
+                        this.setState({
+                            weather: {
+                                isLoaded: true,
+                                isFound: false,
+                                location: "",
+                                mainWeather: "",
+                                descWeather: "",
+                                iconWeather: "",
+                                temp: 0,
+                                humidity: 0
+                            },                  
+                            position: "",                                              
+                        })
+                    })
+                }       
+            })
+            .catch(err => {
+                console.log(err);
             })
         }
+        else{
+            if(this.state.position !== ""){
+                axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.position}&units=metric&appid=9d24d0a1f7423e2c24555db496555442&units=metric`)            
+                .then(result => {
+                    this.setState({
+                        weather: {
+                            isLoaded: true,
+                            isFound: true,
+                            location: result.data.name,
+                            mainWeather: result.data.weather[0].main,
+                            descWeather: result.data.weather[0].description,
+                            iconWeather: result.data.weather[0].icon,
+                            temp: result.data.main.temp,
+                            humidity: result.data.main.humidity
+                        },
+                        position: result.data.name
+                    })
+                })
+                .catch(err => {
+                    this.setState({
+                        weather: {
+                            isLoaded: true,
+                            isFound: false,
+                            location: "",
+                            mainWeather: "",
+                            descWeather: "",
+                            iconWeather: "",
+                            temp: 0,
+                            humidity: 0
+                        },                  
+                        position: "",                                              
+                    })
+                })
+            }
+        }        
     }
     openClockForm(){
         this.setState({
@@ -183,6 +256,8 @@ export default class MainClock extends Component{
                 if(result.data.cod === 200){
                     this.setState({
                         weather: {
+                            isLoaded: true,
+                            isFound: true,
                             location: result.data.name,
                             mainWeather: result.data.weather[0].main,
                             descWeather: result.data.weather[0].description,
@@ -193,7 +268,28 @@ export default class MainClock extends Component{
                         position: result.data.name,                          
                         showClockForm: false
                     })
+                    if(chrome.storage !== undefined){
+                        chrome.storage.sync.set({'resplashWeather': result.data.name}, function() {
+                            console.log("current weather updated");
+                        });
+                    }
                 }
+            })
+            .catch(err => {
+                this.setState({
+                    weather: {
+                        isLoaded: true,
+                        isFound: false,
+                        location: "",
+                        mainWeather: "",
+                        descWeather: "",
+                        iconWeather: "",
+                        temp: 0,
+                        humidity: 0
+                    },                  
+                    position: "",                          
+                    showClockForm: false
+                })
             })
         }        
     }
@@ -250,17 +346,31 @@ export default class MainClock extends Component{
                 </div>
                 <div className="main-clock__main-weather-wrapper">
                     <div className="main-clock__weather-wrapper">
-                        <p>Current weather at {this.state.weather.location}</p>
+                        <p>
+                            {
+                                this.state.weather.isLoaded ? 
+                                    this.state.weather.isFound ? 
+                                        `Current weather at ${this.state.weather.location}`
+                                    : "City not found"
+                                : "No Internet Connection"                                
+                            }
+                        </p>
                         <div className="main-clock__weather-display">
                             <img src={GetWeatherIco(this.state.weather.iconWeather)} alt="weather icons"/>
                             <p>
                             <span>{this.state.weather.temp} <sup>o</sup>C</span><br/>
-                            <span>{this.state.weather.mainWeather} ({this.state.weather.descWeather})</span><br/>
+                            <span>
+                            {
+                                this.state.weather.isFound?
+                                    `${this.state.weather.mainWeather} (${this.state.weather.descWeather})`
+                                : "undefined"                                
+                            }
+                            </span><br/>
                             <span>humidity: {this.state.weather.humidity}%</span>
                             </p>
                         </div>                        
                     </div>   
-                    <p className="main-clock__weather-copyright">Powered by <a href="https://openweathermap.org">openweather</a></p>                 
+                    <p className="main-clock__weather-copyright">Powered by <a href="https://openweathermap.org" title="openweather.org">openweather</a></p>                 
                 </div>
             </div>
         )

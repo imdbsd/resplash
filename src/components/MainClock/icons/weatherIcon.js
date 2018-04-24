@@ -16,6 +16,7 @@ import d13 from './13d.png';
 import n13 from './13n.png';
 import d50 from './50d.png';
 import n50 from './50n.png';
+import failedLoad from "./no-connection.png";
 
 export const GetWeatherIco = (ico) => {    
     const icoArray = {
@@ -38,5 +39,8 @@ export const GetWeatherIco = (ico) => {
         "50d": d50,
         "50n": n50
     }    
+    if(icoArray[ico] === undefined){
+        return failedLoad;
+    }
     return icoArray[ico];
 }
