@@ -25,9 +25,11 @@ export default class Quotes extends Component{
     }
     render(){
         return(
-            <div className="quote__wrapper">
+            <div className="quote__wrapper" style={{
+                zIndex: 10
+              }}>
                 <p className="quote__quote-text" onClick={this.changeQuote}>"{this.state.quoteText}"</p>
-                <span className="quote__author" onClick={this.changeQuote}>{this.state.quoteAuthor}</span  >
+                <span className="quote__author" onClick={this.changeQuote}>{this.state.quoteAuthor}</span>
             </div>
         )
     }

@@ -65,9 +65,11 @@
     border-bottom-right-radius: 20px;
     left: -110%;
     padding-right: 20px;
+    transition: left .25s ease;
 }
 .main-clock__clock-form-wrapper.open{
     left: 0;
+    transition: left .25s ease;
 }
 .main-clock__clock-form-wrapper::before{
     content: "";
