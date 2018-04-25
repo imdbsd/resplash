@@ -1,4 +1,4 @@
-[Resplash Screenshoot](./screenshoot/example1.png)
+![Resplash Screenshoot](./screenshoot/example1.png)
 
 # Resplash
 
@@ -28,7 +28,7 @@ Or simply download the build zip [here](https://drive.google.com/open?id=1EnJsOA
 
 open `chrome://extension` from your chrome and enable developer mode
 
-[step one](./screenshoot/example2.png)
+![step one](./screenshoot/example2.png)
 
 click `load unpacked` and go to `your/dir/to/put/this/extension/resplash`
 
