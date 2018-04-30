@@ -48,6 +48,6 @@ body{
 
 .app-wrapper__bg-image-wrapper.loaded{
   opacity: 1;
-  transition: opacity 1.5s ease;
-  transition-delay: .5s;
+  transition: opacity .5s ease;
+  transition-delay: .2s;
 }
